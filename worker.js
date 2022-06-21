@@ -6,6 +6,7 @@ self.addEventListener("install", e=>{
 }
 );
 self.addEventListener("fetch", async e => {
+    let exists = await caches.has("Bagel.js Bagel");
     let cache = await caches.open("Bagel.js Bagel");
     let cached = await cache.match(e.request);
     if (cached) return cached;
@@ -19,6 +20,9 @@ self.addEventListener("fetch", async e => {
         console.log({
             ...e.request
         });
+        if (e.request.url == index) {
+            return exists? "Where'd the cached file go?" : "Where'd the cache go?";
+        }
     }
     if (toCache.includes(e.request.url)) {
         cache.put(e.request, resource.clone());
