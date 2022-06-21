@@ -1,6 +1,6 @@
 let index = location.href.split("/");
 index.pop();
-const toCache = [index = index.join("/") + "/", "bagel.js", "assets/imgs/bagel.png", "assets/imgs/icons/128x128.png", "assets/imgs/icons/144x144.png", "assets/imgs/icons/152x152.png", "assets/imgs/icons/192x192.png", "assets/imgs/icons/256x256.png", "assets/imgs/icons/512x512.png", "manifest.json", "worker.js"];
+const toCache = [index = index.join("/") + "/", ["bagel.js", "assets/imgs/bagel.png", "assets/imgs/icons/128x128.png", "assets/imgs/icons/144x144.png", "assets/imgs/icons/152x152.png", "assets/imgs/icons/192x192.png", "assets/imgs/icons/256x256.png", "assets/imgs/icons/512x512.png", "manifest.json", "worker.js"].map(href => index + href)];
 self.addEventListener("install", e=>{
     self.skipWaiting()
 }
@@ -24,7 +24,7 @@ self.addEventListener("fetch", async e => {
             return exists? "Where'd the cached file go?" : "Where'd the cache go?";
         }
     }
-    if (toCache.includes(e.request.url == index? index : index + e.request.url)) {
+    if (toCache.includes(e.request.url)) {
         cache.put(e.request, resource.clone());
     }
     return resource;
