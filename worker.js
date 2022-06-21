@@ -24,7 +24,7 @@ self.addEventListener("fetch", async e => {
             return exists? "Where'd the cached file go?" : "Where'd the cache go?";
         }
     }
-    if (toCache.includes(e.request.url)) {
+    if (toCache.includes(e.request.url == index? index : index + e.request.url)) {
         cache.put(e.request, resource.clone());
     }
     return resource;
