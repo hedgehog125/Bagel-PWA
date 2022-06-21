@@ -7,7 +7,7 @@ self.addEventListener("install", e=>{
 );
 self.addEventListener("fetch", e => {
     e.respondWith(
-        async _ => {
+        (async _ => {
             let exists = await caches.has("Bagel.js Bagel");
             let cache = await caches.open("Bagel.js Bagel");
             let cached = await cache.match(e.request);
@@ -30,6 +30,6 @@ self.addEventListener("fetch", e => {
                 cache.put(e.request, resource.clone());
             }
             return resource;
-        }
+        })()
     );
 });
