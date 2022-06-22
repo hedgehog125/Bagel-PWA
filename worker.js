@@ -23,7 +23,7 @@ self.addEventListener("fetch", e => {
                     ...e.request
                 });
                 if (e.request.url == index) {
-                    return exists? "Where'd the cached file go?" : "Where'd the cache go?";
+                    return new Response(exists? "Where'd the cached file go?" : "Where'd the cache go?");
                 }
             }
             if (toCache.includes(e.request.url)) {
