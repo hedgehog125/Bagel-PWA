@@ -27,7 +27,7 @@ self.addEventListener("fetch", e => {
                 }
             }
             if (toCache.includes(e.request.url)) {
-                cache.put(e.request, resource.clone());
+                e.waitUntil(cache.put(e.request, resource.clone())); // Update it in the background
             }
             return resource;
         })()
